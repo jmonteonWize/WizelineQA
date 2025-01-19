@@ -1,20 +1,25 @@
 version: 2.1
-
 jobs:
   test:
     docker:
-      - image: cimg/node:18  # Usar una imagen de Node.js que te ayude a instalar dependencias
-
+      - image: cimg/node:16
     steps:
-      - checkout  # Se asegura de que el código se haya descargado
+      - setup_remote_docker:
+          version: 20.10.7  # Usar la versión de Docker adecuada para CircleCI
+          docker_layer_caching: true  # Habilitar el caching de las capas de Docker
 
+      - checkout
+
+      # Paso para instalar las dependencias
       - run:
           name: Install dependencies
-          command: npm install  # Instala las dependencias de Node.js
+          command: npm install
 
+      # Ejecutar las pruebas de Playwright
       - run:
           name: Run Playwright tests
-          command: npx playwright test  # Ejecuta tus pruebas Playwright
+          command: npx playwright test
+
 
   build:
     docker:
