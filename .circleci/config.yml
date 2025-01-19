@@ -26,4 +26,19 @@ jobs:
   deploy:
     docker:
       - image: cimg/base:stable
- 
+    steps:
+      - run:
+          name: Deploy
+          command: '#e.g. ./deploy.sh'
+
+workflows:
+  version: 2
+  example:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
+      - deploy:
+          requires:
+            - test
