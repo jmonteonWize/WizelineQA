@@ -15,20 +15,20 @@ test.describe('Tests successful login', () => {
     await loginPage.todayHeader();
 });
 
-  test('should fail login with incorrect email format', async () => {
+  test('Fail login with incorrect email format', async () => {
     await loginPage.login('invalid@t', 'wrongpassword');
     const errorMessageLocator = await loginPage.getInvalidEmailErrorMessage();
     const errorMessageText = await errorMessageLocator.textContent();
     await expect(errorMessageText?.trim()).toBe('Please enter a valid email address.');
 });
-  test('should fail login with password as blank', async () => {
+  test('Fail login with password as blank', async () => {
     await loginPage.login('invalid@test.com', '');
     const errorMessageLocator = await loginPage.getLenghtErrorMessage();
     const errorMessageText = await errorMessageLocator.textContent();
     await expect(errorMessageText?.trim()).toBe('Passwords must be at least 8 characters long.');
     
   });
-  test('should fail login with incorrect email address', async () => {
+  test('Fail login with incorrect email address', async () => {
     await loginPage.login('tesrt@test.com', 'wrongpassword');
     const errorMessageLocator = await loginPage.getInvalidEmailErrorMessage();
     const errorMessageText = await errorMessageLocator.textContent();
