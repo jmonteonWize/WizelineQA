@@ -3,15 +3,18 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/node:16  # Usar una imagen de Node.js que te ayude a instalar dependencias
 
     steps:
-      - checkout
+      - checkout  # Se asegura de que el código se haya descargado
 
-      # Reemplaza con el comando real para ejecutar tus pruebas
       - run:
-          name: Run tests
-          command: npx playwright test  # Aquí puedes usar el comando adecuado para tu proyecto
+          name: Install dependencies
+          command: npm install  # Instala las dependencias de Node.js
+
+      - run:
+          name: Run Playwright tests
+          command: npx playwright test  # Ejecuta tus pruebas Playwright
 
   build:
     docker:
@@ -19,12 +22,9 @@ jobs:
 
     steps:
       - checkout
-
-      # Reemplaza con los pasos reales para construir tu proyecto
       - run:
           name: Build an artifact
           command: touch example.txt
-
       - store_artifacts:
           path: example.txt
 
