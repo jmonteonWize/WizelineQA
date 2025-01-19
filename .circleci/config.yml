@@ -1,19 +1,20 @@
 version: 2.1
+
 jobs:
   test:
     docker:
       - image: cimg/node:16.14
     steps:
-    - setup_remote_docker:
-      version: 20.10.7
-      docker_layer_caching: true
-    - run:
-      name: Clean Docker cache
-      command: docker builder prune --all -f 
+      - setup_remote_docker:
+          version: 20.10.7
+          docker_layer_caching: true
+      - run:
+          name: Clean Docker cache
+          command: docker builder prune --all -f
+
   build:
     docker:
       - image: cimg/base:stable
-
     steps:
       - checkout
       - run:
@@ -25,19 +26,4 @@ jobs:
   deploy:
     docker:
       - image: cimg/base:stable
-
-    steps:
-      - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
-
-workflows:
-  example:
-    jobs:
-      - test
-      - build:
-          requires:
-            - test
-      - deploy:
-          requires:
-            - test
+ 
