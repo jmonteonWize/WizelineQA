@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: cimg/node:16  # Usar una imagen de Node.js que te ayude a instalar dependencias
+      - image: cimg/node:18  # Usar una imagen de Node.js que te ayude a instalar dependencias
 
     steps:
       - checkout  # Se asegura de que el código se haya descargado
